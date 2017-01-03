@@ -1,0 +1,31 @@
+<div class="ui huge menu blue">
+  <div class="header item">
+    <h1><i class="checkmark box icon"></i><a [routerLink]="['']">Freelabs</a></h1>
+  </div>
+  <a class="item">
+    <i class="mail outline icon"></i>Повідомлення
+  </a>
+  <a class="item" [routerLink]="['viewlabs']">
+    <i class="line chart icon"></i>Зробити лабу
+  </a>
+  <a class="item" [routerLink]="['createlab']">
+    <i class="add square icon" ></i>Запостити лабу
+  </a>
+  <div class="right menu" *ngIf="!(authService.isLoggedIn() | async)">
+    <a class="item" [routerLink]="['register']">
+      <button class="ui primary button">Зареєструватись</button>
+    </a>
+    <a class="item" [routerLink]="['login']">
+      <button class="ui positive button">Увійти</button>
+    </a>
+  </div>
+  <div class="right menu" *ngIf="authService.isLoggedIn() | async">
+    <a class="item" [routerLink]="['profile']">
+      <button class="ui primary button">Профіль</button>
+    </a>
+    <a class="item">
+      <button class="ui positive button" (click)="logout()">Розлогінитись</button>
+    </a>
+  </div>
+</div>
+

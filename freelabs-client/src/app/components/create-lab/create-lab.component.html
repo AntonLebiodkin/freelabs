@@ -1,0 +1,43 @@
+<div class="ui middle aligned centered segment">
+  <div class="ui large form">
+    <form name="form" #f="ngForm" (ngSubmit)="submit(f)">
+      <div class="field" >
+        <label>Назва лабораторної роботи</label>
+        <input type="text" name="name" placeholder="Введіть назву лаби" [(ngModel)]="lab.name" required #name="ngModel">
+        <div *ngIf="f.submitted && !name.valid" class="ui pointing red basic label">
+          Поле назва лабораторної роботи обов'язкове!
+        </div>
+      </div>
+      <br>
+
+      <div class="ui fluid selection dropdown">
+        <input type="hidden" name="subject" [(ngModel)]="lab.subject" #subject="ngModel" required>
+        <i class="dropdown icon"></i>
+        <div class="default text">Предмет</div>
+        <div class="menu">
+          <div *ngFor="let subject of subjects; let i = index;" class="item">
+            {{subject}}
+          </div>
+        </div>
+      </div>
+      <div class="ui pointing red basic label" *ngIf="dropdownError">
+        {{dropdownError}}
+      </div>
+      <br>
+      <div class="field" >
+        <label for="lab-description">Опис лабораторної роботи</label>
+        <textarea id="lab-description" name="description" [(ngModel)]="lab.description" #description="ngModel" required></textarea>
+        <div *ngIf="f.submitted && !description.valid" class="ui pointing red basic label">
+          Поле опису лабораторної роботи обов'язкове!
+        </div>
+      </div>
+      <br>
+      <div class="field">
+        <label>Необхідна дата закінчення роботи</label>
+        <my-date-picker (dateChanged)="onDateChanged($event)" [options]="myDatePickerOptions" #datepicker></my-date-picker>
+      </div>
+      <button class="ui submit button" type="submit">Створити завдання</button>
+    </form>
+  </div>
+</div>
+

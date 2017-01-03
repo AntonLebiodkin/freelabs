@@ -1,0 +1,32 @@
+<div class="ui segment">
+  <h2 class="ui center aligned header">{{lab.name}}</h2>
+  <p>{{lab.description}}</p>
+</div>
+<div class="ui segment">
+  <h2 class="ui center aligned  header">Пропозиції</h2>
+  <button class="ui right floated teal button">Зробити пропозицію</button>
+  <table class="ui very basic collapsing celled large table centered" *ngIf="lab.proposals.length">
+    <thead>
+      <tr>
+        <th>Employee</th>
+        <th>Correct Guesses</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let proposal of lab.proposals;">
+      <td>
+        <h4 class="ui image header">
+          <img src="{{proposal.author.avatarURL}}" class="ui mini rounded image">
+          <div class="content">
+            {{proposal.author.username}}
+            <div class="sub header">{{proposal.author.firstName}} {{proposal.author.lastName}}
+            </div>
+          </div>
+        </h4></td>
+      <td>
+        22
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

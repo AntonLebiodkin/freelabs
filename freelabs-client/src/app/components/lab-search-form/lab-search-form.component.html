@@ -1,0 +1,27 @@
+<div class="three wide column lab-search-form">
+  <div class="content">
+    <div class="ui vertical menu">
+      <form class="ui form" (ngSubmit)="onSubmit()" #f="ngForm">
+        <div class="item">
+          <div class="header">Предмети</div>
+          <br>
+          <div class="field" *ngFor="let subject of subjects; let i = index;">
+            <div class="ui checkbox">
+              <input type="checkbox"
+                     name="subjects"
+                     value="{{subject}}"
+                     [checked]="subjectsMap[subject] === true"
+                     (change)="updateCheckedSubjects(subject, $event)">
+              <label>{{subject}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <button class="ui primary fluid button" type="submit">Знайти</button>
+          <br>
+          <button class="ui fluid button" (click)="cancel()" *ngIf="hasChecked()">Відмінити</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

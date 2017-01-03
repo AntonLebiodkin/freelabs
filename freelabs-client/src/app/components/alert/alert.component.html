@@ -1,0 +1,1 @@
+<div *ngIf="message" [ngClass]="{ 'ui floating message': message, 'ui success message': message.type === 'success', 'ui negative message': message.type === 'error' }">{{message.text}}</div>

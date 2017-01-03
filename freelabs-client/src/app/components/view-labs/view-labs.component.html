@@ -1,0 +1,37 @@
+<div class="ui segment" *ngIf="labs" (labsUpdated)="labsUpdate($event)">
+  <div class="ui grid">
+    <lab-search-form (labsUpdated)="labsUpdate($event)"></lab-search-form>
+    <div class="ten wide column">
+        <div class="ui segment">
+          <div class="content">
+            <div class="ui divided items">
+              <div class="item" *ngFor="let lab of labs | paginate: { id: 'server', itemsPerPage: 10, currentPage: p, totalItems: total }; let i = index;">
+                <div class="content">
+                  <a class="header">{{ lab.name }}</a>
+                  <div class="meta">
+                    <span class="cinema"><b>Author: </b><a href="">{{lab.author.username}}</a></span>
+                  </div>
+                  <div class="description">
+                    <p>{{lab.description}}</p>
+                    <p><b>Дата закінчення:</b> {{lab.endDate | date:'fullDate'}}  </p>
+                  </div>
+                  <div class="extra">
+                    <div class="ui label">{{lab.subject | subject}}</div>
+                    <button class="ui right floated primary button" [routerLink]="['']">
+                      Зробити ставку
+                      <i class="right chevron icon"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="ui divider"></div>
+          <div class="ui center aligned cegment">
+            <div class="spinner" [ngClass]="{ 'hidden': !loading }"></div>
+            <pagination-controls (pageChange)="defaultSearch($event)" id="server"></pagination-controls>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>

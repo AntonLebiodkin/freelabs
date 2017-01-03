@@ -1,0 +1,51 @@
+<div class="ui middle aligned center aligned grid holder">
+  <div class="column ten wide">
+    <div class="ui large form">
+      <form name="form" (ngSubmit)="register()" #f="ngForm" novalidate>
+        <div class="field" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+          <label>Логін</label>
+          <input type="text" name="login" placeholder="Логін користувача" [(ngModel)]="model.username" required>
+          <div *ngIf="f.submitted && !username.valid" class="help-block">Поле користувача обов'язкове!</div>
+        </div>
+        <div class="field">
+          <label>Пароль</label>
+          <input type="password" name="password" placeholder="Пароль користувача" [(ngModel)]="model.password" required>
+          <div *ngIf="f.submitted && !password.valid" class="help-block">Поле користувача обов'язкове!</div>
+        </div>
+        <div class="field">
+          <label>Підтвердіть пароль</label>
+          <input type="password" name="password" placeholder="Пароль користувача" [(ngModel)]="model.confirmPassword" required>
+          <div *ngIf="f.submitted && !password.valid" class="help-block">Поле користувача обов'язкове!</div>
+        </div>
+        <div class="field">
+          <label>Ім'я</label>
+          <input type="text" name="name" placeholder="Ваше ім'я" [(ngModel)]="model.name">
+          <div *ngIf="f.submitted && !password.valid" class="help-block">Поле користувача обов'язкове!</div>
+        </div>
+        <div class="field">
+          <label>Прізвище</label>
+          <input type="text" name="surname" placeholder="Ваше прізвище" [(ngModel)]="model.surname">
+          <div *ngIf="f.submitted && !password.valid" class="help-block">Поле користувача обов'язкове!</div>
+        </div>
+        <div class="ui fluid selection dropdown">
+          <input type="hidden" name="university" [(ngModel)]="model.university">
+          <i class="dropdown icon"></i>
+          <div class="default text">Оберіть Ваш університет</div>
+          <div class="menu">
+            <div class="item" data-value="0">
+              КПІ
+            </div>
+            <div class="item" data-value="1">
+              КНУ
+            </div>
+          </div>
+        </div>
+        <br>
+        <br>
+        <button class="ui submit button" [disabled]="loading" type="submit">Зареєструватись</button>
+        <div *ngIf="loading" class="ui active inline loader"></div>
+        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+      </form>
+    </div>
+  </div>
+</div>
