@@ -1,5 +1,1 @@
-sudo mongod --dbpath data/instance1 --port 27000
-sudo mongod --dbpath data/instance2 --port 27001
-sudo mongod --configsvr --dbpath data/config --port 27002
-sudo mongos --configdb 127.0.0.1:27002 --port 27100
 mongo --port 27100

@@ -13,9 +13,16 @@ export class LabService {
   CLIENTSECRET: string = 'dksu287aokjfaouiusdia7127a5skd';
   private labUrl = 'http://localhost:3000/api/labs';
   private labForSubjectsUrl = 'http://localhost:3000/api/labs/for-subjects';
+  private labSelected: Lab;
 
   constructor(private http: Http, private alertService: AlertService) {
     this.authToken = JSON.parse(localStorage.getItem('currentUser')).token;
+  }
+
+  getLabById(id: string) {
+    const labUrl = 'http://localhost:3000/api/lab/' + id;
+    return this.http.get(labUrl)
+                    .map( (response: Response) => response.json() as Lab)
   }
 
   postLab(lab: Lab) {

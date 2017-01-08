@@ -1,18 +1,17 @@
-<div class="item">
-  <div class="content">
-    <a class="header" href="https://google.com">Лаба з чисельних методів</a>
-    <div class="meta">
-      <span class="cinema">Середня складність - Приблизний бюджет ₴150</span>
-    </div>
-    <div class="description">
-      <p>
-        Постмодернізм у сучасній українській літературі виявляється в творчості Ю. Андруховича, 
-        Ю. Іздрика, Л. Дереша, О. Ульяненка, С. Процюка, В. Медведя, О. Забужко, В. Кураша та інших.
-      </p>
-    </div>
-    <div class="extra">
-      <div class="ui label">Чисельні методи</div>
-    </div>
+<div class="content">
+  <a class="header" (click)="onViewLabItem(this.lab)">{{ lab.name }}</a>
+  <div class="meta">
+    <span class="cinema"><b>Author: </b><a href="">{{lab.author.username}}</a></span>
+  </div>
+  <div class="description">
+    <p>{{lab.description}}</p>
+    <p><b>Дата закінчення:</b> {{lab.endDate | date:'fullDate'}}  </p>
+  </div>
+  <div class="extra">
+    <div class="ui label">{{lab.subject | subject}}</div>
+    <button class="ui right floated primary button" (click)="onViewLabItem(lab.id)">
+      Зробити ставку
+      <i class="right chevron icon"></i>
+    </button>
   </div>
 </div>
-<div class="ui divider"></div>

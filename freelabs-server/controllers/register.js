@@ -40,10 +40,8 @@ exports.registration = function (req, res, next) {
     }
     bcrypt.hash(req.body.password, SALT_WORK_FACTOR, function(err, hash) {
         //SAVING MAIN USER DATA TO POSTGRES
-        User.find({
-            where: {
-                username: req.body.username
-            }
+        UserProfile.find({
+           username: req.body.username
         }).then(function(existingUser) {
             //CHECK IF USER NOT EXIST
             if (existingUser) {
@@ -51,28 +49,21 @@ exports.registration = function (req, res, next) {
             }
             const CASUAL_USER_PERMISSION = 2;
             //POSTGRES CREATE USER ACCOUNT
-            return User.create({
-                email: email,
-                password: hash,
-                permission: CASUAL_USER_PERMISSION
-            });
-
-        }).then(function(user){
-            var username = req.body.username;
-            var email = req.body.email;
-            //IF SAVED IN POSTGRES - SAVING IN MONGODB
-            var userProfile = new UserProfile({
+            let userProfile = new UserProfile({
                 userID: user.id,
                 username: username,
                 firstname: firstName,
                 lastName: lastName,
-                email: email,
                 avatarURL: 'https://pp.vk.me/c636226/v636226944/2a253/dWUWc0DYmnM.jpg',
                 rating: 0,
                 university: req.body.university || '',
-                messages: []
+                messages: [],
+
+                email: email,
+                password: hash,
+                permission: CASUAL_USER_PERMISSION
             });
-            return userProfile.save();
+            userProfile.save();
         }).then(function (userProfile) {
             let userInfo = setUserInfo(userProfile);
             res.status(201).json({

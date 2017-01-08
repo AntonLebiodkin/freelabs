@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var mongoosePaginate = require('mongoose-paginate');
 
 var Schema = mongoose.Schema;
+var keygen = require("keygenerator");
 
 var subjectMap = {
     'Чисельні методи': 0,
@@ -25,6 +26,7 @@ var statusMap = {
     'closed': 2
 };
 var labSchema = new Schema({
+    id: String,
     name: String,
     author: {
         type: Number,
@@ -37,6 +39,10 @@ var labSchema = new Schema({
     endDate: Date
 });
 labSchema.plugin(mongoosePaginate);
+labSchema.pre('save', function(next) {
+    this.id = keygen._();
+    next();
+});
 
 var Lab = mongoose.model('Lab', labSchema);
 

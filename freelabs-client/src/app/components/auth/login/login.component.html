@@ -2,14 +2,14 @@
   <div class="column ten wide">
     <div class="ui large form">
       <form name="form" (ngSubmit)="login()" #f="ngForm">
-        <div class="field" >
+        <div class="field" [ngClass]="{ 'error': f.submitted && !username.valid }">
           <label>Логін</label>
-          <input type="text" name="username" placeholder="Логін користувача" [ngClass]="{ 'field error': f.submitted && !username.valid }" [(ngModel)]="model.username" required #username="ngModel">
+          <input type="text" name="username" placeholder="Логін користувача"  [(ngModel)]="model.username" required #username="ngModel">
           <div *ngIf="f.submitted && !username.valid" class="help-block">Поле користувача обов'язкове!</div>
         </div>
-        <div class="field" >
+        <div class="field" [ngClass]="{ 'error': f.submitted && !password.valid }">
           <label>Пароль</label>
-          <input type="password" name="password" placeholder="Пароль користувача" [ngClass]="{ 'field error': f.submitted && !password.valid }" [(ngModel)]="model.password" required #password="ngModel">
+          <input type="password" name="password" placeholder="Пароль користувача"  [(ngModel)]="model.password" required #password="ngModel">
           <div *ngIf="f.submitted && !password.valid" class="help-block">Поле користувача обов'язкове!</div>
         </div>
         <a class="ui secondary button" [routerLink]="['register']">Зареєструватись</a>

@@ -16,8 +16,9 @@ const appRoutes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: UserPageComponent, canActivate: [AuthGuard] },
   { path: 'createlab', component: CreateLabComponent, canActivate: [AuthGuard] },
-  { path: 'viewlabs', component: ViewLabsComponent },
-  { path: 'lab', component: ViewLabItemComponent }
+  { path: 'viewlabs', redirectTo: 'viewlabs/1', pathMatch: 'full' },
+  { path: 'viewlabs/:page', component: ViewLabsComponent },
+  { path: 'lab/:id', component: ViewLabItemComponent }
 ];
 
 @NgModule({

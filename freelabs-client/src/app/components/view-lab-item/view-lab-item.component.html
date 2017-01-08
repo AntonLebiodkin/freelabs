@@ -1,11 +1,44 @@
 <div class="ui segment">
-  <h2 class="ui center aligned header">{{lab.name}}</h2>
-  <p>{{lab.description}}</p>
+  <div class="row">
+    <button class="ui left floated blue button" (click)="onLocationBack()">Назад</button>
+    <button class="ui right floated teal button">Зробити пропозицію</button>
+  </div>
+  <br>
+  <h2 class="ui center aligned header">{{(lab)?.name }}</h2>
+  <h4 class="ui horizontal divider header">
+    <i class="tag icon"></i>
+    Подробиці
+  </h4>
+  <h3>Опис проекту:</h3>
+  <p>{{(lab)?.description}}</p>
+  <p><b>Необхідна дата закінчення: </b>{{(lab)?.endDate | date}}</p>
+  <h4 class="ui horizontal divider header">
+    <i class="user icon"></i>
+    Автор лаби
+  </h4>
+  <div class="ui items">
+    <div class="item">
+      <a class="ui tiny image" [routerLink]="['profile']">
+        <img src="{{(lab)?.author.avatarURL}}">
+      </a>
+      <div class="content">
+        <a class="header">{{(lab)?.author.firstName}} {{(lab)?.author.lastName}}</a>
+        <div class="description">
+          <p>Stevie Feliciano is a <a>library scientist</a> living in New York City. She likes to spend her time reading, running, and writing.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="ui segment">
   <h2 class="ui center aligned  header">Пропозиції</h2>
-  <button class="ui right floated teal button">Зробити пропозицію</button>
-  <table class="ui very basic collapsing celled large table centered" *ngIf="lab.proposals.length">
+  <div class="ui message" *ngIf="!lab?.proposals.length">
+    <div class="header">
+      Поки що нема пропозицій до цієї лаби
+    </div>
+    <p>Будьте першим, хто зробить пропозицію до цієї лаби!</p>
+  </div>
+  <table class="ui very basic collapsing celled large table centered" *ngIf="lab?.proposals.length">
     <thead>
       <tr>
         <th>Employee</th>

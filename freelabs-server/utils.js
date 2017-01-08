@@ -40,6 +40,7 @@ module.exports.create = function (user, req, res) {
             "error": 'User data cannot be empty.'
         })
     }
+
     var data = {
         id: user.id,
         username: user.username,
@@ -49,7 +50,7 @@ module.exports.create = function (user, req, res) {
             expiresIn: TOKEN_EXPIRATION_SEC
         })
     };
-    console.log(data.token);
+
     var decoded = jsonwebtoken.decode(data.token);
 
     data.token_exp = decoded.exp;

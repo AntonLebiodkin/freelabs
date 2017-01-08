@@ -66,12 +66,14 @@ router.route('/setup')
 router.route('/labs')
       .post(utils.verify, labController.postLab)
       .get(labController.getLabsForPage);
+router.route('/lab/:id')
+      .get(labController.getLabById);
 router.route('/labs/for-subjects')
       .get(labController.getLabsForSubjects);
 router.route('/profile/:id')
       .get(utils.verify, profileController.getProfile);
 router.route('/generate')
-       .get(generate);
+      .get(generate);
 
 app.use('/api', router);
 

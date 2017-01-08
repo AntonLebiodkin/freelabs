@@ -5,7 +5,6 @@ var client = redis.createClient();
 const NEW = 0;
 
 exports.postLab = function (req, res) {
-    // var lab = new Lab();
     var username = req.user.username;
     UserProfile.findOne({ username: username })
                .then(function (userProfile) {
@@ -52,7 +51,6 @@ exports.getLabsForSubjects = function (req, res) {
 
 exports.getLabsForPage = function (req, res) {
     client.get('page='+req.query.page, function (error, result) {
-        console.log(result);
         if(result) {
             return res.status(200).json(JSON.parse(result));
         } else {
@@ -60,6 +58,20 @@ exports.getLabsForPage = function (req, res) {
             Lab.paginate({}, { page: page, populate: 'author' }).then(function(labs) {
                 client.setex('page='+req.query.page, 120, JSON.stringify(labs));
                 return res.status(200).json(labs);
+            });
+        }
+    });
+};
+
+exports.getLabById = function (req, res) {
+    const labId = req.params.id;
+    client.get('labID='+ labId, function (error, result) {
+        if(result) {
+            return res.status(200).json(JSON.parse(result));
+        } else {
+            Lab.findOne({ id: labId }).populate('author').then(function(lab) {
+                client.setex('labID=' + labId, 120, JSON.stringify(lab));
+                return res.status(200).json(lab);
             });
         }
     });

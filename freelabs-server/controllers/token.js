@@ -21,45 +21,48 @@ exports.authenticate = function(req, res, next) {
         });
     }
     if (req.body.client_id != CLIENTID) {
+        console.log('Wrong CLIENT ID');
         return res.json({
             "error": "access_denied",
             "error_description": "The resource owner or authorization server denied the request."
         });
     }
     if (req.body.client_secret != CLIENTSECRET) {
+        console.log('Wrong CLIENT SECRET');
         return res.json({
             "error": "access_denied",
             "error_description": "The resource owner or authorization server denied the request."
         });
     }
     if (req.body.grant_type == 'password') {
-        User.find({
-            where: {
-                username: username
-            }
-        }).then(function (user) {
-            if (!user) {
+        UserProfile.findOne({
+           username: username
+        }).then(function (userProfile) {
+            if (!userProfile) {
                 return res.status(401).json({
                     "error": "access_denied",
                     "error_description": "Wrong username or password"
                 });
             }
-            if (user.verifyPassword(req.body.password) && user) {
+            // console.log(userProfile.verifyPassword(req.body.password));
+            // console.log(UserProfile);
+            if (userProfile.verifyPassword(req.body.password)) {
                 console.log("User authenticated, generating token");
                 //THIS FUNCTION NOW IS HANDLING OUR TOKEN SENDING
                 utils.create(user, req, res);
             } else {
                 return res.status(401).json({
                     "error": "access_denied",
-                    "error_description": "The resource owner or authorization server denied the request."
+                    "error_description": "Wrong username and/or password"
                 });
             }
         })
     } else {
+        console.log('wrong grant type');
         //WRONG GRANT_TYPE
         return res.json({
             "error": "access_denied",
             "error_description": "The resource owner or authorization server denied the request."
         });
     }
-}
+};

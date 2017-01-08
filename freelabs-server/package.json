@@ -19,6 +19,7 @@
     "express-unless": "^0.3.0",
     "jade": "~1.11.0",
     "jsonwebtoken": "^7.2.1",
+    "keygenerator": "^1.0.4",
     "mongoose": "^4.7.1",
     "morgan": "~1.7.0",
     "passport": "^0.3.2",

@@ -5,7 +5,7 @@ var labPromises = [];
 module.exports = function (req, res) {
     UserProfile.findOne({ username: 'admin' })
         .then(function (admin) {
-            for (let i = 0; i < 50000; i++) {
+            for (let i = 0; i < 500; i++) {
                 let subject = generateSubject();
                 let description = generateDescriptionBySubjectAndNumber(subject, i+1);
                 let lab = new Lab({
